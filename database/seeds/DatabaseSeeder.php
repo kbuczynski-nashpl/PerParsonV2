@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Artisan;
 
 class DatabaseSeeder extends Seeder
 {
@@ -11,6 +13,12 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // $this->call(UserSeeder::class);
+        Artisan::call("db:seed --class=CountrySeeder");
+
+        if (App::environment('local')) {
+            Artisan::call("db:seed --class=DevelopmentSeeder");
+        } else {
+            dd('not in production yet');
+        }
     }
 }
