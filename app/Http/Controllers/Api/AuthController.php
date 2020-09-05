@@ -4,8 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\AuthRequest;
-use App\Models\User;
-use Illuminate\Support\Facades\Hash;
+use App\Repositories\Auth;
 
 class AuthController extends Controller
 {
@@ -20,20 +19,17 @@ class AuthController extends Controller
     {
         $request->validated();
 
-        $user = User::where('email', $request->email)
-                    ->first();
+        $auth = new Auth();
 
-        if ($user) {
-            if (Hash::check($request->password, $user->password)) {
-                $tokenObject = $user->createToken('PerParson Auth Token');
+        if ($user = $auth->validateUser($request->email, $request->password)) {
+            $tokenObject = $user->createToken('PerParson Auth Token');
 
-                return response()
-                    ->json(
-                        (object)[
-                            'token' => $tokenObject->token,
-                        ]
-                    );
-            }
+            return response()
+                ->json(
+                    (object)[
+                        'token' => $tokenObject->token,
+                    ]
+                );
         }
 
         $noUserFoundResponse = ['message' => 'Wrong user provided'];
