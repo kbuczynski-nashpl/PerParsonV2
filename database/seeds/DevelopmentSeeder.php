@@ -97,7 +97,7 @@ class DevelopmentSeeder extends Seeder
                         ]
                     )
                     ->each(function ($ticket) {
-                        factory(TicketNotes::class, 50)->create(
+                        factory(TicketNotes::class, 25)->create(
                             [
                                 'ticket_id'     => $ticket->id,
                                 'created_by_id' => rand(1, 10),
