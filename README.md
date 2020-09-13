@@ -10,6 +10,7 @@ The `docker-compose.yml` file uses local `.env` file to borrow few variables for
 
 Run docker (detached)
 ```bash
+docker volume create db
 docker-compose up -d
 ```
 
@@ -30,6 +31,34 @@ php artisan migrate
 ***Passport Tables/Installation***
 ```bash
 php artisan passport:install
+```
+
+## Testing Env
+A testing env is creating using a docker testing containers (its own database and phpmyadmin instance)
+All testing `env` are kept in `.env.testing`. However, a `docker-compose` uses `.env` file to pull the 
+env variables in so please make sure you have added those 2 fields into your `.env` file
+
+```
+TEST_DB_DATABASE=perparson_test
+TEST_DB_PASSWORD=**Yourpassword**
+```
+
+If you wish to persists the database tables and keep them for your self
+Make sure you have created `testdb` volume for `docker` to use.
+
+```
+docker volume create testdb
+```
+
+#### Migration and Seeding of Testing 
+A migration and database seeding can be accomplished with simple `artisan` commands
+by passing `--env` flag we ensure that the correct database will be seeded and migrated.
+
+***Running `php artisan test` should run those commands at the beginning of the tests***
+
+```bash
+php artisan migrate --env=testing
+php artisan db:seed --env=testing
 ```
 
 ## IDE Helpers
