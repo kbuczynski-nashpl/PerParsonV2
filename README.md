@@ -1,5 +1,7 @@
 # PerParson CRM System
 
+##### [Development Board](https://app.gitkraken.com/glo/board/X15Psj2bBQARvb0o)
+
 ## Local Development
 PerParson works with docker to run the MariaDB instance. Please make sure you have newest version
 of docker installed on your machine.
