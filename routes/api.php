@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-Route::namespace('App\Http\Controllers\Api\Crm')
+Route::namespace('Api\Crm')
      ->group(function () {
          Route::group(['prefix' => 'crm', 'middleware' => 'auth:api'], function () {
              Route::group(['prefix' => 'type'], function () {

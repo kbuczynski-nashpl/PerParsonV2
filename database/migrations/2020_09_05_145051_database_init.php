@@ -169,18 +169,22 @@ class DatabaseInit extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists($this->usersTable);
-        Schema::dropIfExists($this->userSettingsTable);
-        Schema::dropIfExists($this->crmCompanyTypeTable);
-        Schema::dropIfExists($this->crmCompaniesTable);
-        Schema::dropIfExists($this->crmCompanyAddressesTable);
-        Schema::dropIfExists($this->crmCompanyPhoneTable);
-        Schema::dropIfExists($this->crmCompanyTicketsTable);
-        Schema::dropIfExists($this->crmCompanyTicketTypes);
-        Schema::dropIfExists($this->ticketsNotesTable);
-        Schema::dropIfExists($this->crmCompanyStaffTable);
-        Schema::dropIfExists($this->crmStaffContacts);
-        Schema::dropIfExists($this->crmCompanyStaffPositionsTable);
-        Schema::dropIfExists($this->countriesTable);
+        Schema::disableForeignKeyConstraints();
+
+        Schema::drop($this->usersTable);
+        Schema::drop($this->userSettingsTable);
+        Schema::drop($this->crmCompanyTypeTable);
+        Schema::drop($this->crmCompaniesTable);
+        Schema::drop($this->crmCompanyAddressesTable);
+        Schema::drop($this->crmCompanyPhoneTable);
+        Schema::drop($this->crmCompanyTicketsTable);
+        Schema::drop($this->crmCompanyTicketTypes);
+        Schema::drop($this->ticketsNotesTable);
+        Schema::drop($this->crmCompanyStaffTable);
+        Schema::drop($this->crmStaffContacts);
+        Schema::drop($this->crmCompanyStaffPositionsTable);
+        Schema::drop($this->countriesTable);
+
+        Schema::enableForeignKeyConstraints();
     }
 }

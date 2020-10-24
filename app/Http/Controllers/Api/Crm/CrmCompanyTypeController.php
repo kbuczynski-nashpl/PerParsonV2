@@ -17,13 +17,14 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Log;
 use Symfony\Component\HttpFoundation\Response as HttpCode;
+use Throwable;
 
 class CrmCompanyTypeController extends Controller implements ApiControllerInterface
 {
 
     public function index()
     {
-        return response()->json(CrmCompanyTypeResource::make(CrmCompanyType::all()));
+        return response()->json(CrmCompanyTypeResource::collection(CrmCompanyType::all()));
     }
 
     public function show(int $id)
@@ -35,6 +36,7 @@ class CrmCompanyTypeController extends Controller implements ApiControllerInterf
      * @param Request|CrmCompanyTypeRequest $request
      *
      * @return Application|ResponseFactory|JsonResponse|Response|object
+     * @throws Throwable
      */
     public function store($request)
     {
@@ -67,6 +69,7 @@ class CrmCompanyTypeController extends Controller implements ApiControllerInterf
      * @param int                           $id
      *
      * @return mixed|void
+     * @throws Throwable
      */
     public function update($request, int $id)
     {
@@ -96,6 +99,7 @@ class CrmCompanyTypeController extends Controller implements ApiControllerInterf
      * @param int $id
      *
      * @return Application|ResponseFactory|JsonResponse|Response|mixed|object
+     * @throws Throwable
      */
     public function destroy(int $id)
     {

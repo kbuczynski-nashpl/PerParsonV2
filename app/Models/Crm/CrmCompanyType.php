@@ -2,6 +2,7 @@
 
 namespace App\Models\Crm;
 
+use Eloquent;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
 
@@ -19,7 +20,7 @@ use Illuminate\Support\Carbon;
  * @method static \Illuminate\Database\Eloquent\Builder|CrmCompanyType whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|CrmCompanyType whereType($value)
  * @method static \Illuminate\Database\Eloquent\Builder|CrmCompanyType whereUpdatedAt($value)
- * @mixin \Eloquent
+ * @mixin Eloquent
  */
 class CrmCompanyType extends Model
 {
