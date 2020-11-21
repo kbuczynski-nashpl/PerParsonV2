@@ -24,7 +24,7 @@ class CrmCompanyType extends FormRequest
     public function rules(): array
     {
         return [
-            'type' => 'required|max:50|unique:App\CrmCompanyType,type',
+            'type' => 'required|max:50|unique:App\Models\Crm\CrmCompanyType,type',
         ];
     }
 

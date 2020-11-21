@@ -3,8 +3,6 @@
 namespace Tests;
 
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Schema;
 
 abstract class TestCase extends BaseTestCase
 {
@@ -18,7 +16,6 @@ abstract class TestCase extends BaseTestCase
         $this->artisan('key:generate', ['--no-interaction' => true]);
         $this->artisan('db:seed', ['--class' => 'CountrySeeder']);
         $this->artisan('db:seed', ['--class' => 'DatabaseSeeder']);
-        $this->artisan('db:seed', ['--class' => 'TestingSeeder']);
     }
 
     public function tearDown(): void

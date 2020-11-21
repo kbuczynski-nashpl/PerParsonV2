@@ -26,6 +26,10 @@ class CrmCompanyType extends Model
 {
     public function companies()
     {
-        $this->hasMany('App\Models\Crm\CrmCompany', 'company_type_id');
+        return $this->hasMany('App\Models\Crm\CrmCompany', 'company_type_id');
+    }
+
+    public function hasCompanies(){
+        return $this->companies()->get()->isNotEmpty();
     }
 }

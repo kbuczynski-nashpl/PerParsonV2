@@ -3,23 +3,19 @@
 namespace App\Http\Controllers\Api\Crm;
 
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\Interfaces\ApiControllerInterface;
 use App\Http\Requests\Api\Crm\CrmCompanyType as CrmCompanyTypeRequest;
 use App\Http\Resources\Api\Crm\CrmCompanyType as CrmCompanyTypeResource;
 use App\Models\Crm\CrmCompanyType;
 use App\Repositories\Crm\CrmCompanyTypeRepo;
 use DB;
 use Exception;
-use Illuminate\Contracts\Foundation\Application;
-use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Log;
 use Symfony\Component\HttpFoundation\Response as HttpCode;
 use Throwable;
 
-class CrmCompanyTypeController extends Controller implements ApiControllerInterface
+class CrmCompanyTypeController extends Controller
 {
 
     public function index()
@@ -33,12 +29,12 @@ class CrmCompanyTypeController extends Controller implements ApiControllerInterf
     }
 
     /**
-     * @param Request|CrmCompanyTypeRequest $request
+     * @param CrmCompanyTypeRequest $request
      *
-     * @return Application|ResponseFactory|JsonResponse|Response|object
+     * @return JsonResponse|Response
      * @throws Throwable
      */
-    public function store($request)
+    public function store(CrmCompanyTypeRequest $request)
     {
         $request->validated();
 
@@ -52,26 +48,22 @@ class CrmCompanyTypeController extends Controller implements ApiControllerInterf
         } catch (Exception $e) {
             Log::error($e->getMessage());
             DB::rollBack();
-            return response()
-                ->setStatusCode(HttpCode::HTTP_BAD_REQUEST)
-                ->json(['msg' => 'Could not save new Type']);
+            return response()->json(['msg' => 'Could not save new Type'], HttpCode::HTTP_BAD_REQUEST);
         }
 
         DB::commit();
 
-        return response()
-            ->json(new CrmCompanyTypeResource($crmCompanyType))
-            ->setStatusCode(HttpCode::HTTP_CREATED);
+        return response()->json(new CrmCompanyTypeResource($crmCompanyType), HttpCode::HTTP_CREATED);
     }
 
     /**
-     * @param CrmCompanyTypeRequest|Request $request
-     * @param int                           $id
+     * @param CrmCompanyTypeRequest $request
+     * @param int                   $id
      *
      * @return mixed|void
      * @throws Throwable
      */
-    public function update($request, int $id)
+    public function update(CrmCompanyTypeRequest $request, int $id)
     {
         $request->validated();
 
@@ -85,9 +77,7 @@ class CrmCompanyTypeController extends Controller implements ApiControllerInterf
         } catch (Exception $e) {
             Log::error($e->getMessage());
             DB::rollBack();
-            return response()
-                ->setStatusCode(HttpCode::HTTP_BAD_REQUEST)
-                ->json(['msg' => 'Could not update a company Type']);
+            return response()->json(['msg' => 'Could not update a company Type'], HttpCode::HTTP_BAD_REQUEST);
         }
 
         DB::commit();
@@ -98,12 +88,16 @@ class CrmCompanyTypeController extends Controller implements ApiControllerInterf
     /**
      * @param int $id
      *
-     * @return Application|ResponseFactory|JsonResponse|Response|mixed|object
+     * @return JsonResponse|Response
      * @throws Throwable
      */
     public function destroy(int $id)
     {
         $crmCompanyType = new CrmCompanyTypeRepo($id);
+
+        if ($crmCompanyType->model()->hasCompanies()){
+            return response()->json(['msg' => 'Crm Company Type still has companies attached to it!'], HttpCode::HTTP_CONFLICT);
+        }
 
         DB::beginTransaction();
 
@@ -112,11 +106,9 @@ class CrmCompanyTypeController extends Controller implements ApiControllerInterf
         } catch (Exception $e) {
             Log::error($e->getMessage());
             DB::rollBack();
-            return response()
-                ->setStatusCode(HttpCode::HTTP_BAD_REQUEST)
-                ->json(['msg' => 'Could not delete a company Type']);
+            return response()->json(['msg' => 'Could not delete a company Type'], HttpCode::HTTP_BAD_REQUEST);
         }
 
-        return response()->setStatusCode(HttpCode::HTTP_NO_CONTENT);
+        return response('', HttpCode::HTTP_NO_CONTENT);
     }
 }

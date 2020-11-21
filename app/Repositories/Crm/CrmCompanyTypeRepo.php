@@ -45,4 +45,9 @@ class CrmCompanyTypeRepo implements CrmCompanyInterface
     {
         $this->crmCompanyType->delete();
     }
+
+    public function model()
+    {
+        return $this->crmCompanyType;
+    }
 }

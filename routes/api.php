@@ -24,7 +24,7 @@ Route::namespace('Api\Crm')
                       ->name('crm_type_store');
                  Route::put('/{id}', 'CrmCompanyTypeController@update')
                       ->name('crm_type_update');
-                 Route::delete('/{id}', 'CrmCompanyTypeController@delete')
+                 Route::delete('/{id}', 'CrmCompanyTypeController@destroy')
                       ->name('crm_type_delete');
              });
          });
