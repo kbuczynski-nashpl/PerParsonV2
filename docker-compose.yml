@@ -1,54 +1,49 @@
-# Use root/example as user/password credentials
 version: '3.1'
 volumes:
-  db:
-  testdb:
-
+  db: null
+  testdb: null
 services:
   db:
     image: mariadb
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
-      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_ROOT_PASSWORD: '${DB_PASSWORD}'
+      MYSQL_DATABASE: '${DB_DATABASE}'
     ports:
-      - "3306:3306"
+      - '3306:3306'
     volumes:
       - db
-
   testdb:
-   image: mariadb
-   restart: always
-   environment:
-     MYSQL_ROOT_PASSWORD: ${TEST_DB_PASSWORD}
-     MYSQL_DATABASE: ${TEST_DB_DATABASE}
-   ports:
-     - "3307:3306"
-   volumes:
-     - testdb
-
+    image: mariadb
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: '${TEST_DB_PASSWORD}'
+      MYSQL_DATABASE: '${TEST_DB_DATABASE}'
+    ports:
+      - '3307:3306'
+    volumes:
+      - testdb
   phpmyadmin:
     image: phpmyadmin
     restart: always
     ports:
-      - 8085:80
+      - '8085:80'
     environment:
       PMA_PORT: 3306
       PMA_HOST: db
       PMA_USER: root
-      PMA_PASSWORD: ${DB_PASSWORD}
+      PMA_PASSWORD: '${DB_PASSWORD}'
     depends_on:
       - db
-
   test_phpmyadmin:
     image: phpmyadmin
     restart: always
     ports:
-      - 8086:80
+      - '8086:80'
     environment:
       PMA_PORT: 3306
       PMA_HOST: testdb
       PMA_USER: root
-      PMA_PASSWORD: ${TEST_DB_PASSWORD}
+      PMA_PASSWORD: '${TEST_DB_PASSWORD}'
     depends_on:
       - testdb

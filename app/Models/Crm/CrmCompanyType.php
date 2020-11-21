@@ -2,15 +2,17 @@
 
 namespace App\Models\Crm;
 
+use Eloquent;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 
 /**
  * App\Models\Crm\CrmCompanyType
  *
  * @property int $id
  * @property string $type
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
  * @method static \Illuminate\Database\Eloquent\Builder|CrmCompanyType newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|CrmCompanyType newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|CrmCompanyType query()
@@ -18,12 +20,16 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|CrmCompanyType whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|CrmCompanyType whereType($value)
  * @method static \Illuminate\Database\Eloquent\Builder|CrmCompanyType whereUpdatedAt($value)
- * @mixin \Eloquent
+ * @mixin Eloquent
  */
 class CrmCompanyType extends Model
 {
     public function companies()
     {
-        $this->hasMany('App\Models\Crm\CrmCompany', 'company_type_id');
+        return $this->hasMany('App\Models\Crm\CrmCompany', 'company_type_id');
+    }
+
+    public function hasCompanies(){
+        return $this->companies()->get()->isNotEmpty();
     }
 }
