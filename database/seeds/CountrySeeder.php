@@ -1,5 +1,7 @@
 <?php
 
+namespace Database\Seeders;
+
 use App\Models\Country;
 use Illuminate\Database\Seeder;
 
@@ -265,12 +267,10 @@ class CountrySeeder extends Seeder
         ];
 
         foreach ($countries as $country) {
-            factory(Country::class, 1)->create(
-                [
-                    'name'       => $country['name'],
-                    'short_name' => $country['short_name'],
-                ]
-            );
+            Country::factory()->create([
+                'name'       => $country['name'],
+                'short_name' => $country['short_name'],
+            ]);
         }
     }
 }

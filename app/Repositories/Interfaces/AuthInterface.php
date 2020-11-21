@@ -14,5 +14,5 @@ interface AuthInterface
      *
      * @return mixed
      */
-    public function validateUser(string $email, string $password)
+    public function validateUser(string $email, string $password);
 }

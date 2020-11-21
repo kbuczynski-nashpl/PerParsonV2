@@ -2,6 +2,7 @@
 
 namespace App\Models\Crm;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -22,5 +23,5 @@ use Illuminate\Database\Eloquent\Model;
  */
 class CrmCompanyStaffPosition extends Model
 {
-    //
+    use HasFactory;
 }

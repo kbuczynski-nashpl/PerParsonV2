@@ -1,5 +1,7 @@
 <?php
 
+namespace Database\Seeders;
+
 use App\Models\Crm\CrmCompanyStaffPosition;
 use App\Models\Crm\CrmCompanyType;
 use App\Models\Crm\CrmTicketType;
@@ -16,21 +18,21 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        factory(CrmCompanyType::class, 1)->create(['type' => 'ACTIVE']);
-        factory(CrmCompanyType::class, 1)->create(['type' => 'ARCHIVED']);
-        factory(CrmCompanyType::class, 1)->create(['type' => 'PENDING']);
-        factory(CrmCompanyType::class, 1)->create(['type' => 'LEAD']);
+        CrmCompanyType::factory()->create(['type' => 'ACTIVE']);
+        CrmCompanyType::factory()->create(['type' => 'ARCHIVED']);
+        CrmCompanyType::factory()->create(['type' => 'PENDING']);
+        CrmCompanyType::factory()->create(['type' => 'LEAD']);
 
-        factory(CrmTicketType::class, 1)->create(['name' => 'OPEN']);
-        factory(CrmTicketType::class, 1)->create(['name' => 'CLOSE']);
-        factory(CrmTicketType::class, 1)->create(['name' => 'NEW']);
+        CrmTicketType::factory()->create(['name' => 'OPEN']);
+        CrmTicketType::factory()->create(['name' => 'CLOSE']);
+        CrmTicketType::factory()->create(['name' => 'NEW']);
 
-        factory(CrmCompanyStaffPosition::class, 1)->create(['position' => 'MANAGER']);
-        factory(CrmCompanyStaffPosition::class, 1)->create(['position' => 'CEO']);
-        factory(CrmCompanyStaffPosition::class, 1)->create(['position' => 'SUB-MANAGER']);
-        factory(CrmCompanyStaffPosition::class, 1)->create(['position' => 'WORKER']);
-        factory(CrmCompanyStaffPosition::class, 1)->create(['position' => 'SUPERVISOR']);
-        factory(CrmCompanyStaffPosition::class, 1)->create(['position' => 'MARKETING']);
+        CrmCompanyStaffPosition::factory()->create(['position' => 'MANAGER']);
+        CrmCompanyStaffPosition::factory()->create(['position' => 'CEO']);
+        CrmCompanyStaffPosition::factory()->create(['position' => 'SUB-MANAGER']);
+        CrmCompanyStaffPosition::factory()->create(['position' => 'WORKER']);
+        CrmCompanyStaffPosition::factory()->create(['position' => 'SUPERVISOR']);
+        CrmCompanyStaffPosition::factory()->create(['position' => 'MARKETING']);
 
         Artisan::call("db:seed --class=CountrySeeder");
 

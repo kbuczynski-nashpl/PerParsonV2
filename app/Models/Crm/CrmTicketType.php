@@ -3,6 +3,7 @@
 namespace App\Models\Crm;
 
 use Eloquent;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
 
@@ -24,6 +25,8 @@ use Illuminate\Support\Carbon;
  */
 class CrmTicketType extends Model
 {
+    use HasFactory;
+
     public function tickets()
     {
         $this->hasMany('App\Models\Crm\CrmCompanyTicket', 'type_id');

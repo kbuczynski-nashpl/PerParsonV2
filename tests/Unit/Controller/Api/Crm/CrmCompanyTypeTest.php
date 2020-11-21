@@ -2,6 +2,7 @@
 
 namespace Tests\Unit\Controller\Api\Crm;
 
+use App\Models\Crm\CrmCompany;
 use App\Models\Crm\CrmCompanyType;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -65,7 +66,7 @@ class CrmCompanyTypeTest extends TestCase
     public function testDeleteType()
     {
         /** @var CrmCompanyType $newType */
-        $newType = factory(CrmCompanyType::class)->create(['type' => Str::random(10)]);
+        $newType = CrmCompanyType::factory()->create(['type' => Str::random(10)]);
 
         $this->actingAs($this->standardUser, 'api')
              ->delete("/api/crm/type/{$newType->id}")
@@ -118,31 +119,31 @@ class CrmCompanyTypeTest extends TestCase
 
         $this->actingAs($this->standardUser, 'api')
              ->putJson('/api/crm/type/1', $post)
-             ->assertStatus(Code::HTTP_BAD_REQUEST);
+             ->assertStatus(Code::HTTP_UNPROCESSABLE_ENTITY);
 
         $post = ['type' => ''];
 
         $this->actingAs($this->standardUser, 'api')
              ->putJson('/api/crm/type/1', $post)
-             ->assertStatus(Code::HTTP_BAD_REQUEST);
+             ->assertStatus(Code::HTTP_UNPROCESSABLE_ENTITY);
 
         $post = ['type', Str::random(51)];
 
         $this->actingAs($this->standardUser, 'api')
              ->putJson('/api/crm/type/1', $post)
-             ->assertStatus(Code::HTTP_BAD_REQUEST);
+             ->assertStatus(Code::HTTP_UNPROCESSABLE_ENTITY);
 
         $post = ['type' => 'ARCHIVED'];
 
         $this->actingAs($this->standardUser, 'api')
              ->putJson('/api/crm/type/1', $post)
-             ->assertStatus(Code::HTTP_BAD_REQUEST);
+             ->assertStatus(Code::HTTP_UNPROCESSABLE_ENTITY);
 
         $post = ['type' => 'NEW TEST'];
 
         $this->actingAs($this->standardUser, 'api')
              ->putJson('/api/crm/type/99', $post)
-             ->assertStatus(Code::HTTP_BAD_REQUEST);
+             ->assertStatus(Code::HTTP_NOT_FOUND);
     }
 
     public function testFailDeletingType()
@@ -150,6 +151,8 @@ class CrmCompanyTypeTest extends TestCase
         $this->actingAs($this->standardUser, 'api')
              ->delete('/api/crm/type/99')
              ->assertStatus(Code::HTTP_NOT_FOUND);
+
+        CrmCompany::factory()->create(['company_type_id' => 1]);
 
         $this->actingAs($this->standardUser, 'api')
             ->delete('/api/crm/type/1')

@@ -2,6 +2,7 @@
 
 namespace App\Models\Crm;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -28,6 +29,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class CrmCompanyContacts extends Model
 {
+    use HasFactory;
+
     public function staff()
     {
         $this->hasOne('App\Models\Crm\CrmCompanyStaff', 'staff_id');

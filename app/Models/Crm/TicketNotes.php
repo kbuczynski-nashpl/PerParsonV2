@@ -2,6 +2,7 @@
 
 namespace App\Models\Crm;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -30,6 +31,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class TicketNotes extends Model
 {
+    use HasFactory;
+
     public function ticket()
     {
         $this->hasOne('App\Models\Crm\CrmCompanyTicket', 'ticket_id');
