@@ -48,7 +48,7 @@ class CrmCompanyTypeController extends Controller
         } catch (Exception $e) {
             Log::error($e->getMessage());
             DB::rollBack();
-            return response()->json(['msg' => 'Could not save new Type'], HttpCode::HTTP_BAD_REQUEST);
+            return response()->json(['msg' => 'Could not save new type'], HttpCode::HTTP_BAD_REQUEST);
         }
 
         DB::commit();
@@ -77,7 +77,7 @@ class CrmCompanyTypeController extends Controller
         } catch (Exception $e) {
             Log::error($e->getMessage());
             DB::rollBack();
-            return response()->json(['msg' => 'Could not update a company Type'], HttpCode::HTTP_BAD_REQUEST);
+            return response()->json(['msg' => 'Could not update a company type'], HttpCode::HTTP_BAD_REQUEST);
         }
 
         DB::commit();
@@ -106,7 +106,7 @@ class CrmCompanyTypeController extends Controller
         } catch (Exception $e) {
             Log::error($e->getMessage());
             DB::rollBack();
-            return response()->json(['msg' => 'Could not delete a company Type'], HttpCode::HTTP_BAD_REQUEST);
+            return response()->json(['msg' => 'Could not delete a company type'], HttpCode::HTTP_BAD_REQUEST);
         }
 
         return response('', HttpCode::HTTP_NO_CONTENT);
