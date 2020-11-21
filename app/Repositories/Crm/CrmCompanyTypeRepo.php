@@ -13,13 +13,14 @@ class CrmCompanyTypeRepo implements CrmCompanyInterface
 {
     protected CrmCompanyType $crmCompanyType;
 
-    public function __construct(int $id = null)
+    public function __construct(int $idNumber = null)
     {
-        if (empty($id)) {
+        if (empty($idNumber)) {
             $this->crmCompanyType = new CrmCompanyType();
-        } else {
-            $this->crmCompanyType = CrmCompanyType::findOrFail($id);
+            return;
         }
+
+        $this->crmCompanyType = CrmCompanyType::findOrFail($idNumber);
     }
 
     /**

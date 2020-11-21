@@ -18,14 +18,22 @@ use Throwable;
 class CrmCompanyTypeController extends Controller
 {
 
+    /**
+     * @return JsonResponse
+     */
     public function index()
     {
         return response()->json(CrmCompanyTypeResource::collection(CrmCompanyType::all()));
     }
 
-    public function show(int $id)
+    /**
+     * @param int $idNumber
+     *
+     * @return JsonResponse
+     */
+    public function show(int $idNumber)
     {
-        return response()->json(new CrmCompanyTypeResource(CrmCompanyType::findOrFail($id)));
+        return response()->json(new CrmCompanyTypeResource(CrmCompanyType::findOrFail($idNumber)));
     }
 
     /**
@@ -58,16 +66,16 @@ class CrmCompanyTypeController extends Controller
 
     /**
      * @param CrmCompanyTypeRequest $request
-     * @param int                   $id
+     * @param int                   $idNumber
      *
      * @return mixed|void
      * @throws Throwable
      */
-    public function update(CrmCompanyTypeRequest $request, int $id)
+    public function update(CrmCompanyTypeRequest $request, int $idNumber)
     {
         $request->validated();
 
-        $crmCompanyType = new CrmCompanyTypeRepo($id);
+        $crmCompanyType = new CrmCompanyTypeRepo($idNumber);
         $data           = (object)$request->only('type');
 
         DB::beginTransaction();
@@ -86,14 +94,14 @@ class CrmCompanyTypeController extends Controller
     }
 
     /**
-     * @param int $id
+     * @param int $idNumber
      *
      * @return JsonResponse|Response
      * @throws Throwable
      */
-    public function destroy(int $id)
+    public function destroy(int $idNumber)
     {
-        $crmCompanyType = new CrmCompanyTypeRepo($id);
+        $crmCompanyType = new CrmCompanyTypeRepo($idNumber);
 
         if ($crmCompanyType->model()->hasCompanies()){
             return response()->json(['msg' => 'Crm Company Type still has companies attached to it!'], HttpCode::HTTP_CONFLICT);
