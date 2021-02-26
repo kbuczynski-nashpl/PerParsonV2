@@ -5,7 +5,6 @@ namespace Tests\Unit\Controller\Api\Crm;
 use App\Models\Crm\CrmCompany;
 use App\Models\Crm\CrmCompanyType;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Str;
 use Symfony\Component\HttpFoundation\Response as Code;
 use Tests\Helpers\SetUpHelper;
