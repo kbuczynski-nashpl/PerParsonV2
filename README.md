@@ -3,17 +3,13 @@
 ##### [Development Board](https://app.gitkraken.com/glo/board/X15Psj2bBQARvb0o)
 
 ## Local Development
-PerParson works with docker to run the MariaDB instance. Please make sure you have newest version
-of docker installed on your machine.
+PerParson works with [Homestead](https://laravel.com/docs/8.x/homestead) to run the MariaDB/MySQL instance.
 
 Please make sure you have run `composer install` and `npm install` to bring dependencies in.
 
-The `docker-compose.yml` file uses local `.env` file to borrow few variables for the database setup
-
-Run docker (detached)
+Initialise Homestead
 ```bash
-docker volume create db
-docker-compose up -d
+php vendor/bin/homestead make
 ```
 
 To run local development just invoke serve command with laravel CLI.  
@@ -21,6 +17,7 @@ To run local development just invoke serve command with laravel CLI.
 php artisan serve
 ```
 
+To get the enviroment working please copy `.env.example` into `.env` and fill the database information
 
 ## Migrations
 Please execute those commands to create all needed tables to run the application.
@@ -36,21 +33,8 @@ php artisan passport:install
 ```
 
 ## Testing Env
-A testing env is creating using a docker testing containers (its own database and phpmyadmin instance)
-All testing `env` are kept in `.env.testing`. However, a `docker-compose` uses `.env` file to pull the 
-env variables in so please make sure you have added those 2 fields into your `.env` file
-
-```
-TEST_DB_DATABASE=perparson_test
-TEST_DB_PASSWORD=**Yourpassword**
-```
-
-If you wish to persists the database tables and keep them for your self
-Make sure you have created `testdb` volume for `docker` to use.
-
-```
-docker volume create testdb
-```
+All testing `env` are kept in `.env.testing`. So make sure that the database information are correct.
+If you do not have `.env.testing` file please create one from `.env.example` and remove local variables from it. 
 
 #### Migration and Seeding of Testing 
 A migration and database seeding can be accomplished with simple `artisan` commands
