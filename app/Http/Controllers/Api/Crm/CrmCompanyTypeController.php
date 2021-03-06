@@ -47,7 +47,7 @@ class CrmCompanyTypeController extends Controller
         $request->validated();
 
         $crmCompanyType = new CrmCompanyTypeRepo();
-        $data           = (object)$request->only('type');
+        $data           = (object) $request->only('type');
 
         DB::beginTransaction();
 
@@ -66,7 +66,7 @@ class CrmCompanyTypeController extends Controller
 
     /**
      * @param CrmCompanyTypeRequest $request
-     * @param int                   $idNumber
+     * @param int $idNumber
      *
      * @return mixed|void
      * @throws Throwable
@@ -76,7 +76,7 @@ class CrmCompanyTypeController extends Controller
         $request->validated();
 
         $crmCompanyType = new CrmCompanyTypeRepo($idNumber);
-        $data           = (object)$request->only('type');
+        $data           = (object) $request->only('type');
 
         DB::beginTransaction();
 
@@ -103,8 +103,9 @@ class CrmCompanyTypeController extends Controller
     {
         $crmCompanyType = new CrmCompanyTypeRepo($idNumber);
 
-        if ($crmCompanyType->model()->hasCompanies()){
-            return response()->json(['msg' => 'Crm Company Type still has companies attached to it!'], HttpCode::HTTP_CONFLICT);
+        if ($crmCompanyType->model()->hasCompanies()) {
+            return response()->json(['msg' => 'Crm Company Type still has companies attached to it!'],
+                HttpCode::HTTP_CONFLICT);
         }
 
         DB::beginTransaction();

@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Repositories\Crm;
-
 
 use App\Models\Crm\CrmCompanyType;
 use App\Repositories\Interfaces\Crm\CrmCompanyInterface;
@@ -42,12 +40,15 @@ class CrmCompanyTypeRepo implements CrmCompanyInterface
     /**
      * @throws Exception
      */
-    public function destroy()
+    public function destroy(): void
     {
         $this->crmCompanyType->delete();
     }
 
-    public function model()
+    /**
+     * @return CrmCompanyType
+     */
+    public function model(): CrmCompanyType
     {
         return $this->crmCompanyType;
     }
