@@ -7,11 +7,11 @@ use App\Http\Requests\Api\Crm\CrmCompanyType as CrmCompanyTypeRequest;
 use App\Http\Resources\Api\Crm\CrmCompanyType as CrmCompanyTypeResource;
 use App\Models\Crm\CrmCompanyType;
 use App\Repositories\Crm\CrmCompanyTypeRepo;
-use DB;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
-use Log;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Symfony\Component\HttpFoundation\Response as HttpCode;
 use Throwable;
 
@@ -21,7 +21,7 @@ class CrmCompanyTypeController extends Controller
     /**
      * @return JsonResponse
      */
-    public function index()
+    public function index(): JsonResponse
     {
         return response()->json(CrmCompanyTypeResource::collection(CrmCompanyType::all()));
     }
@@ -31,7 +31,7 @@ class CrmCompanyTypeController extends Controller
      *
      * @return JsonResponse
      */
-    public function show(int $idNumber)
+    public function show(int $idNumber): JsonResponse
     {
         return response()->json(new CrmCompanyTypeResource(CrmCompanyType::findOrFail($idNumber)));
     }
