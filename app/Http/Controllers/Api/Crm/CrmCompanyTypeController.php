@@ -38,11 +38,10 @@ class CrmCompanyTypeController extends Controller
 
     /**
      * @param CrmCompanyTypeRequest $request
-     *
-     * @return JsonResponse|Response
+     * @return JsonResponse
      * @throws Throwable
      */
-    public function store(CrmCompanyTypeRequest $request)
+    public function store(CrmCompanyTypeRequest $request): JsonResponse
     {
         $request->validated();
 
@@ -67,11 +66,10 @@ class CrmCompanyTypeController extends Controller
     /**
      * @param CrmCompanyTypeRequest $request
      * @param int $idNumber
-     *
-     * @return mixed|void
+     * @return JsonResponse
      * @throws Throwable
      */
-    public function update(CrmCompanyTypeRequest $request, int $idNumber)
+    public function update(CrmCompanyTypeRequest $request, int $idNumber): JsonResponse
     {
         $request->validated();
 
